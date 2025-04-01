@@ -6,6 +6,15 @@ export const NavBar = () => {
       <Link href='/' className="uppercase font-bold text-md h-12 flex items-center">
         Street wear
       </Link>
+      <div className="flex gap-4">
+        <Link href='signin' className="uppercase font-bold text-sm h-12 flex items-center">
+          sign in
+        </Link>
+        <Link href='/login' className="uppercase font-bold text-sm h-12 flex items-center">
+          Login
+        </Link>
+      </div>
+     
     </nav>
   );
 }
