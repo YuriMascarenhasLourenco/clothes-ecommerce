@@ -8,7 +8,7 @@ export const NavBar = () => {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    const loadUser = () => {
       const raw = localStorage.getItem("auth-store");
       if (raw) {
         try {
@@ -19,10 +19,27 @@ export const NavBar = () => {
         } catch (err) {
           console.error("Erro ao ler usuário do localStorage:", err);
         }
+      } else {
+        setUser(null);
       }
-    }
-  }, [ localStorage.getItem("auth-store") ]); // Dependência para re-renderizar quando o localStorage mudar
-
+    };
+  
+    loadUser();
+  
+    // Se quiser escutar mudanças de outras abas
+    const handleStorageChange = (event: StorageEvent) => {
+      if (event.key === "auth-store") {
+        loadUser();
+      }
+    };
+  
+    window.addEventListener("storage", handleStorageChange);
+  
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
+  
   return (
     <nav className='fixed top-0 w-full flex items-center py-2 px-8 justify-between z-50 bg-slate-800 text-gray-100'>
       <Link href='/' className="uppercase font-bold text-md h-12 flex items-center">
@@ -43,9 +60,6 @@ export const NavBar = () => {
           
         ) : (
           <>
-            <Link href='/signin' className="uppercase font-bold text-sm h-12 flex items-center">
-              Sign in
-            </Link>
             <Link href='/login' className="uppercase font-bold text-sm h-12 flex items-center">
               Login
             </Link>
