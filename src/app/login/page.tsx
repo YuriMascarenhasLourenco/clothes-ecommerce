@@ -1,21 +1,39 @@
 'use client'
-import { LoginUser } from "../components/login";
+
 import { useState } from "react";
+import { useAuthStore } from "../stores/authStore";
+import axios from "axios";
+import { LoginResponse } from "../interfaces/loginResponse";
+import { redirect } from "next/dist/server/api-utils";
+import { api } from "../services/api";
+import next from "next";
+import { useRouter } from "next/navigation";
 
 export default function Login() {  
     const [email, setEmail] = useState('');
+    const router = useRouter()
     const [password, setPassword] = useState('');
 
+    const {login, token, fetchUser}= useAuthStore();
+   
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault(); // Previne o comportamento padrão do formulário
-        const success = await LoginUser(email, password);
-        if (success) {
-            console.log("Login realizado com sucesso!");
-        } else {
-            console.error("Erro ao realizar login.");
+        e.preventDefault(); 
+        try {
+            console.log(email, password);
+            const response =  await api.post('/auth/login', 
+                { email,password });
+                console.log("res:", response.data);
+           const  data  = response.data as LoginResponse
+            login(data.access_token); 
+         fetchUser();
+         router.push('/')
+            
+        } catch (error) {
+            console.error('Erro ao fazer login:', error);
         }
+    
     };
-
+    
     return (
         <div
             className="flex flex-col justify-center items-center h-screen w-full
@@ -46,6 +64,7 @@ export default function Login() {
                     >
                         Login
                     </button>
+                    
                 </form>
             </div>
         </div>
