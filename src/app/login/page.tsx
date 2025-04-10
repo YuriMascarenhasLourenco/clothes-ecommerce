@@ -14,7 +14,7 @@ export default function Login() {
     const router = useRouter()
     const [password, setPassword] = useState('');
 
-    const {login, token, fetchUser}= useAuthStore();
+    const {login, fetchUser}= useAuthStore();
    
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault(); 
@@ -26,6 +26,7 @@ export default function Login() {
            const  data  = response.data as LoginResponse
             login(data.access_token); 
          fetchUser();
+         
          router.push('/')
             
         } catch (error) {

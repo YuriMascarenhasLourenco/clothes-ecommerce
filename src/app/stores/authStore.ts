@@ -1,4 +1,3 @@
-
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { api } from "../services/api";
@@ -27,7 +26,7 @@ export const useAuthStore = create<AuthState>()(
       isAuthenticated: false,
 
       login: (token) => {
-        set({ token, isAuthenticated: true });
+        set({  token, isAuthenticated: true });
       },
 
       fetchUser: async () => {

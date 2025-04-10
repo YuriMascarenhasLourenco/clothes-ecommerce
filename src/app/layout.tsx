@@ -24,6 +24,7 @@ export default function RootLayout({
 
         <main className=" h-screen p-16">
           {children}
+          
         </main>
         
         </body>
