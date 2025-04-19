@@ -1,13 +1,19 @@
 'use client';
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuthStore } from "../stores/authStore";
-
+import { useRouter } from "next/navigation";
 export const NavBar = () => {
   const [ findItem, setFindItem] = useState<string>("")
-const { user }= useAuthStore()
-  
+const { user, logout }= useAuthStore()
+const router= useRouter()
+const exit=()=>{
+  localStorage.removeItem('auth-store')
+  logout()
+  router.push('/')
+
+}
   return (
     <nav className='fixed top-0 w-full flex items-center py-2 px-8 justify-between z-50 bg-slate-800 text-gray-100'>
       <Link href='/' className="uppercase font-bold text-md h-12 flex items-center">
@@ -31,11 +37,11 @@ const { user }= useAuthStore()
           <div className="flex gap-4 items-center justify-evenly">
           <Link href='/newProduct' className="uppercase font-bold text-sm h-12 flex items-center">New Product</Link>
             <span className="uppercase text-sm h-12 flex items-center">
-            Olá, {user.name.split(" ")[0]}
+            Hello, {user.name.split(" ")[0]}
           </span>
-          <Link href='/logout' className="uppercase  text-sm h-12 flex items-center">
+          <div onClick={exit} className="cursor-pointer uppercase  text-sm h-12 flex items-center">
           Logout
-          </Link>
+          </div>
           <Link href='/cart'>
             🛒
           </Link>
@@ -43,11 +49,14 @@ const { user }= useAuthStore()
           
           
         ) : (
-          <>
+          <div className="flex items-center gap-6">
             <Link href='/login' className="uppercase font-bold text-sm h-12 flex items-center">
               Login
             </Link>
-          </>
+            <Link href='/cart'>
+            🛒
+          </Link>
+          </div>
         )}
       </div>
     </nav>
