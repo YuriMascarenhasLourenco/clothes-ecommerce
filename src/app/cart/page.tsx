@@ -4,6 +4,7 @@ import { api } from "../services/api";
 import { cartProductType } from "@/types/cartProductType";
 import { deleteItem } from "../helpers/deleteItem";
 import { deleteCart } from "../helpers/deleteCart";
+import { FaTrashAlt } from "react-icons/fa";
 
 
 export default function CartPage() {
@@ -61,17 +62,17 @@ export default function CartPage() {
                                     
                             </div>
                             <div>
-                                <button className="bg-red-500 w-40 h-8 rounded-md mt-3" onClick={()=>deleteItem(item.id)}>Delete</button>
+                                <button className="bg-red-500 w-10 flex items-center justify-center h-8 rounded-md mt-3" onClick={()=>deleteItem(item.id)}><FaTrashAlt /></button>
                             </div>
                         </div>
                     ))}
-                    <div className="flex justify-end gap-2 p-4 shadow-md w-2/5 justify-items-end border-black rounded-md">
+                    <div className="flex justify-end gap-3 mt-2 p-4 shadow-md w-2/5 justify-items-end border-black rounded-md">
                         <h2 className="font-bold">Total</h2>
                          <p>${total} </p>
                     </div>
                    <div className=" flex gap-3 w-screen justify-center mt-2">
                         <button className=" bg-teal-400 w-40 h-8 rounded-md items-end "> Buy</button>
-                        <button className=" bg-red-500 w-40 h-8 rounded-md items-end " onClick={()=>deleteCart(data)}> Delete All Cart</button>
+                        <button className=" bg-red-500 w-40 h-8 rounded-md flex items-center justify-center" onClick={()=>deleteCart(data)}> Delete</button>
                    </div>
                 </div>
             ) : (

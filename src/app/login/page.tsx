@@ -8,6 +8,7 @@ import { redirect } from "next/dist/server/api-utils";
 import { api } from "../services/api";
 import next from "next";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Login() {  
     const [email, setEmail] = useState('');
@@ -51,6 +52,7 @@ export default function Login() {
                         onChange={(e) => setEmail(e.target.value)}
                         value={email}
                     />
+                    
                     <input
                         type="password"
                         placeholder="Password"
@@ -65,7 +67,7 @@ export default function Login() {
                     >
                         Login
                     </button>
-                    
+                    <a href="/create" className="text-blue-700 text-xs">i do not have an account</a>
                 </form>
             </div>
         </div>

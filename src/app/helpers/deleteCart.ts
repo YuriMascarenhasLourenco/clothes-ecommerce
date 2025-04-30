@@ -6,4 +6,5 @@ export const deleteCart=async(data:cartProductType[])=>{
     console.log('cartId:', cartId)
     const deletedCart= await api.delete<number>(`/cart/${data[0].cartId}`);
     console.log('deleted cart:', deleteCart);
+    
 }

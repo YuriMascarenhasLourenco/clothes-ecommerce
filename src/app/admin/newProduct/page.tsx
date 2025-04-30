@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from "react";
-import { api } from "../services/api";
+import { api } from "../../services/api";
 import { productType } from "@/types/productType";
 import { createProductType } from "@/types/createProductType";
 import { parse } from "path";
