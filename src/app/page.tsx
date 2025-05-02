@@ -25,7 +25,7 @@ export default function Home() {
   return (
     
     <div className="w-screen h-screen mx-auto pt-8 xl:px-0">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 p-12 mx-auto sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {data.map((product: productType) => (
           <ProductList key={product.id} product={product} />
         ))}

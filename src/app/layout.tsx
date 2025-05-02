@@ -22,7 +22,7 @@ export default function RootLayout({
       <body className={clsx(inter.className, 'bg-slate-700')}>
         <NavBar/>
 
-        <main className=" h-screen p-16">
+        <main className=" h-screen ">
           {children}
           
         </main>

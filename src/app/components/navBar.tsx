@@ -105,7 +105,7 @@ export const NavBar = () => {
                 <div className="absolute right-0 mt-2 w-36 rounded-xl shadow-lg bg-white text-black ring-1 ring-black/5 z-50">
                   <ul className="py-2 text-sm">
                     <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                      <Link href="/profile">Perfil</Link>
+                      <Link href="/admin/profile">Perfil</Link>
                     </li>
                     <li
                       className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
