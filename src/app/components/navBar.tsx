@@ -6,6 +6,8 @@ import { useAuthStore } from "../stores/authStore";
 import { useRouter } from "next/navigation";
 import { CiSearch } from "react-icons/ci";
 import { FaUser } from "react-icons/fa";
+import { api } from "../services/api";
+import { productType } from "@/types/productType";
 
 export const NavBar = () => {
   const [findItem, setFindItem] = useState<string>("");
@@ -20,6 +22,21 @@ export const NavBar = () => {
     logout();
     router.push("/");
   };
+  const handleSubmit = async(e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      console.log("Buscando produto:", findItem);
+      const response = await api.get<productType>(`/product/name/${findItem}`);
+      console.log("Resposta da API:", response.data);
+      const product = response.data;
+      console.log("Produto encontrado:", product);
+      // Redireciona para a rota de resultados com o ID do produto como query parameter
+      setFindItem("");
+      router.push(`/search?productId=${product.id}`);
+  } catch (error) {
+      console.error("Erro ao buscar produto:", error);
+  }
+  }
 
   // Fecha dropdowns ao clicar fora
   const userMenuRef = useRef<HTMLDivElement>(null);
@@ -56,6 +73,7 @@ export const NavBar = () => {
       </Link>
 
       <div className="flex items-center w-80">
+        <form action="" onSubmit={handleSubmit} className="flex w-full">
         <input
           type="text"
           className="rounded-md w-80 text-black"
@@ -66,6 +84,8 @@ export const NavBar = () => {
         <button className="rounded-md text-white text-lg w-12 flex items-center justify-center">
           <CiSearch />
         </button>
+        </form>
+       
       </div>
 
       <div className="flex gap-4">
@@ -105,7 +125,7 @@ export const NavBar = () => {
                 <div className="absolute right-0 mt-2 w-36 rounded-xl shadow-lg bg-white text-black ring-1 ring-black/5 z-50">
                   <ul className="py-2 text-sm">
                     <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                      <Link href="/admin/profile">Perfil</Link>
+                      <Link href="/user/profile">Perfil</Link>
                     </li>
                     <li
                       className="px-4 py-2 hover:bg-gray-100 cursor-pointer"

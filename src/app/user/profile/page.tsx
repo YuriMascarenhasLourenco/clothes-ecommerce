@@ -40,7 +40,7 @@ export default function Dashboard() {
                 </div>
                 <div className="bg-white p-6 rounded-lg shadow-lg">
                     <h2 className="text-xl font-bold mb-4">Update Your Profile</h2>
-                    <form className="flex flex-col space-y-4 w-full max-w-md">
+                    <form onSubmit={handleSubmit} className="flex flex-col space-y-4 w-full max-w-md">
                         <input
                             type="text"
                             placeholder="Username"

@@ -1,6 +1,17 @@
+'use client'
 import { Aside } from "@/app/components/aside";
+import { api } from "@/app/services/api";
+import { useAuthStore } from "@/app/stores/authStore";
 
-export default function settings() {
+export default function Settings() {
+    const { logout } = useAuthStore()
+    const handleDeleteAccount = async() => {
+        const id = JSON.parse(localStorage.getItem('auth-store') as string).state.user.id as number;
+        await api.delete(`user/${id}`);
+        logout()
+        localStorage.removeItem('auth-store');
+        window.location.href = '/';
+    }
     return (
         <div className="flex h-screen w-screen bg-gray-100">
             <Aside />

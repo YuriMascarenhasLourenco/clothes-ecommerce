@@ -14,7 +14,7 @@ type Props = {
 
 export const ProductList = ({ product }: Props) => {
   const [switchModel, setSwitchModel] = useState(false);
-  const [productData, setProductData] = useState<productType | null>(null);
+ 
 
   const handleModel = async (id: number) => {
     try {
@@ -31,7 +31,7 @@ export const ProductList = ({ product }: Props) => {
   };
   const closeModel = () => {
     setSwitchModel(false);
-    setProductData(null);
+ 
   };
   return switchModel ? (
     <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50">
