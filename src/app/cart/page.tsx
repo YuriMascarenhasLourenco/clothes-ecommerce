@@ -28,16 +28,34 @@ export default function CartPage() {
         
     }
     const handleBuy = async () => {
-        try{
-            const id= JSON.parse(localStorage.getItem('auth-store')as string).state.user.id as number
-            console.log('id:', id)
-            const items = await api.post<number>(`/payment/${id}`)
-            
-        }catch(err){
-            console.error('Erro ao buscar produtos:', err)
+        try {
+          // Recupera o ID do usuário logado
+          const storedAuth = localStorage.getItem('auth-store')
+          const parsedAuth = storedAuth ? JSON.parse(storedAuth) : null
+          const id = parsedAuth?.state?.user?.id
+      
+          if (!id) {
+            console.error('Usuário não está autenticado')
+            return
+          }
+      
+          console.log('ID do usuário:', id)
+      
+          // Chamada ao backend NestJS
+          const response = await api.post<{ url: string }>(`/payment/${id}`)
+      
+          const { url } = response.data
+      
+          if (url) {
+            window.location.href = url // Redireciona para o checkout do Stripe
+          } else {
+            console.error('URL do Stripe não recebida')
+          }
+        } catch (err) {
+          console.error('Erro ao iniciar pagamento:', err)
         }
-    }
-
+      }
+      
     useEffect(() => {
         cartItems()
         console.log('rwnderização de página')
