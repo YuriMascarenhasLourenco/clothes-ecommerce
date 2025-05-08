@@ -27,6 +27,16 @@ export default function CartPage() {
         }
         
     }
+    const handleBuy = async () => {
+        try{
+            const id= JSON.parse(localStorage.getItem('auth-store')as string).state.user.id as number
+            console.log('id:', id)
+            const items = await api.post<number>(`/payment/${id}`)
+            
+        }catch(err){
+            console.error('Erro ao buscar produtos:', err)
+        }
+    }
 
     useEffect(() => {
         cartItems()
@@ -62,7 +72,7 @@ export default function CartPage() {
                                     
                             </div>
                             <div>
-                                <button className="bg-red-500 w-10 flex items-center justify-center h-8 rounded-md mt-3" onClick={()=>deleteItem(item.id)}><FaTrashAlt /></button>
+                                <button className="bg-red-500 w-10 flex items-center justify-center h-8 rounded-md mt-4" onClick={()=>deleteItem(item.id)}><FaTrashAlt /></button>
                             </div>
                         </div>
                     ))}
@@ -71,7 +81,7 @@ export default function CartPage() {
                          <p>${total} </p>
                     </div>
                    <div className=" flex gap-3 w-screen justify-center mt-2">
-                        <button className=" bg-teal-400 w-40 h-8 rounded-md items-end "> Buy</button>
+                        <button className=" bg-teal-400 w-40 h-8 rounded-md items-end " onClick={handleBuy}> Buy</button>
                         <button className=" bg-red-500 w-40 h-8 rounded-md flex items-center justify-center" onClick={()=>deleteCart(data)}> Delete</button>
                    </div>
                 </div>
