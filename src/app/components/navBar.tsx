@@ -89,7 +89,7 @@ export const NavBar = () => {
       </div>
 
       <div className="flex gap-4">
-        {user ? (
+        {user?.role=== 'admin' ? (
           <div className="flex gap-4 items-center">
             {/* Dropdown Management */}
             <div className="relative" ref={managementMenuRef}>
