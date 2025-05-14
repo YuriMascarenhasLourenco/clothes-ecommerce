@@ -2,16 +2,16 @@
 import { useEffect, useState } from "react";
 import { productType } from "@/types/productType";
 import { ProductList } from "./components/productList";
-import { api } from "./services/api";
 export default function Home() {
   const [data, setData] = useState<productType[]>([]); // Estado para armazenar os produtos
 
   const fetchProducts = async () => {
     try {
       const timestamp = new Date().getTime(); // Você pode usar esse timestamp para evitar cache em URL se quiser
-   const res = await api.get<productType[]>(`/product`);
-   console.log(res.data);
-      const json = res.data;
+      const res = await fetch("https://ecommerce-cart-0v1d.onrender.com/product", {
+        cache: "no-store",
+      });
+      const json = await res.json();
       setData(json); // Atualiza o estado com os dados
     } catch (error) {
       console.error("Erro ao buscar produtos:", error);
