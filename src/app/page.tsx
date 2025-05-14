@@ -10,6 +10,7 @@ export default function Home() {
     try {
       const timestamp = new Date().getTime(); // Você pode usar esse timestamp para evitar cache em URL se quiser
    const res = await api.get<productType[]>(`/product`);
+   console.log(res.data);
       const json = res.data;
       setData(json); // Atualiza o estado com os dados
     } catch (error) {
