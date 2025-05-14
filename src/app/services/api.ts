@@ -6,6 +6,9 @@ export const api= axios.create({
     headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache',
+        'Expires': '0'
     },
 })
 api.interceptors.request.use((config) => {

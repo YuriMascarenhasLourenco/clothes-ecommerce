@@ -2,16 +2,15 @@
 import { useEffect, useState } from "react";
 import { productType } from "@/types/productType";
 import { ProductList } from "./components/productList";
+import { api } from "./services/api";
 export default function Home() {
   const [data, setData] = useState<productType[]>([]); // Estado para armazenar os produtos
 
   const fetchProducts = async () => {
     try {
       const timestamp = new Date().getTime(); // Você pode usar esse timestamp para evitar cache em URL se quiser
-      const res = await fetch("http://localhost:5050/product", {
-        cache: "no-store",
-      });
-      const json = await res.json();
+      const res = await api.get<productType[]>(`/product`);
+      const json =  res.data
       setData(json); // Atualiza o estado com os dados
     } catch (error) {
       console.error("Erro ao buscar produtos:", error);
