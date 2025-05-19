@@ -6,7 +6,7 @@ import { ProductList } from "./components/productList";
 function Loading() {
   return (
     <div className="flex justify-center items-center h-screen w-screen">
-      <span className="text-xl font-bold">Carregando produtos...</span>
+      <span className="text-xl font-bold">loading...</span>
     </div>
   );
 }
