@@ -2,19 +2,30 @@
 import { useEffect, useState } from "react";
 import { productType } from "@/types/productType";
 import { ProductList } from "./components/productList";
+
+function Loading() {
+  return (
+    <div className="flex justify-center items-center h-screen w-screen">
+      <span className="text-xl font-bold">Carregando produtos...</span>
+    </div>
+  );
+}
+
 export default function Home() {
-  const [data, setData] = useState<productType[]>([]); // Estado para armazenar os produtos
+  const [data, setData] = useState<productType[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const fetchProducts = async () => {
     try {
-      const timestamp = new Date().getTime(); // Você pode usar esse timestamp para evitar cache em URL se quiser
       const res = await fetch("https://ecommerce-cart-0v1d.onrender.com/product", {
         cache: "no-store",
       });
       const json = await res.json();
-      setData(json); // Atualiza o estado com os dados
+      setData(json);
     } catch (error) {
       console.error("Erro ao buscar produtos:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -22,8 +33,9 @@ export default function Home() {
     fetchProducts();
   }, []);
 
+  if (loading) return <Loading />;
+
   return (
-    
     <div className="w-screen h-screen mx-auto pt-8 xl:px-0">
       <div className="grid grid-cols-1 p-12 mx-auto sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {data.map((product: productType) => (
